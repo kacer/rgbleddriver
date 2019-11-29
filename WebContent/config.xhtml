@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+	
+	<h:body>
+		<ui:composition template="template/index.xhtml">
+			<ui:define name="title">Main</ui:define>
+			<ui:define name="content">
+	        	<h1>RGB LED Driver for WS2812</h1>
+	        	<div class="container">
+	        		<h2>Config page</h2>
+	        		<h:form method="post" >
+	        			<h:panelGroup rendered="#{not empty facesContext.messageList}">
+	        				<h:messages></h:messages>
+	        			</h:panelGroup>
+	        			<div>
+	        				<h:outputLabel for="input-gpio-num" value="GPIO NUM:"/>
+	        				<h:selectOneMenu id="input-gpio-num" value="#{configBean.gpioNum}">
+		        				<f:selectItem itemValue="10" itemLabel="GPIO 10"/>
+		        				<f:selectItem itemValue="18" itemLabel="GPIO 18"/>
+	        				</h:selectOneMenu>
+	        			</div>
+	        			<div>
+	        				<h:outputLabel for="input-count-of-led" value="LED COUNT:"/>
+	        				<h:inputText id="input-count-of-led" value="#{configBean.countOfLed}"/>
+	        			</div>
+	        			<h:commandButton class="btn-confirm" action="#{configBean.save}" value="Nastavit"/>
+	        		</h:form>
+	        	</div>
+	        </ui:define>
+        </ui:composition>
+	</h:body>	
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+	
+	<h:body>
+		<ui:composition template="template/index.xhtml">
+			<ui:define name="title">Main</ui:define>
+			<ui:define name="content">
+	        	<h1>RGB LED Driver for WS2812</h1>
+	        	<div class="container">
+	        		<div id="color-mode">
+	        			<label>
+	        				<input type="radio" name="color-mode" value="single" checked="checked" /> Jedna
+	        			</label>
+			        	<label>
+			        		<input type="radio" name="color-mode" value="all" /> Všechny
+			        	</label>
+			        	<label>
+			        		<input type="radio" name="color-mode" value="interpolate" /> Interpolace
+			        	</label>
+		        	</div>
+		        	<div id="led-strip">
+		        		<ui:repeat value="#{colorBean.leds.getLeds()}" var="led" >
+		        			<div style="background-color: #{led.color.getRGBString()};">
+		        				<h:inputHidden value="#{led.color.getRGB()}"/>
+		        			</div>
+		        		</ui:repeat>
+		        	</div>
+		        	<div id="colorpicker"></div>
+		        	<div class="btn-confirm">Nastavit</div>
+	        	</div>
+	        </ui:define>
+        </ui:composition>
+	</h:body>	
+</html>
