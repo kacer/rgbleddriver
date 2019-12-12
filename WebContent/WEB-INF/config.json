@@ -1,4 +1,7 @@
 {
    "gpioNum":18,
-   "countOfLed":15
+   "countOfLed":15,
+   "photocellGpioNum": 23,
+   "usePhotocell":false,
+   "useUserConfig":false
 }

@@ -24,6 +24,47 @@
 	        				<h:outputLabel for="input-count-of-led" value="LED COUNT:"/>
 	        				<h:inputText id="input-count-of-led" value="#{configBean.countOfLed}"/>
 	        			</div>
+	        			<div>
+	        				<h:outputLabel for="input-photocell-gpio-num" value="Photocell GPIO NUM:"/>
+	        				<h:inputText id="input-photocell-gpio-num" value="#{configBean.photocellNum}"/>
+	        			</div>
+	        			<div>
+	        				<h:outputLabel for="input-use-photocell" value="Používat senzor světla:"/>
+	        				<h:selectOneRadio id="input-use-photocell" value="#{configBean.usePhotocell}">
+	        					<f:selectItem itemValue="true" itemLabel="Ano"/>
+	        					<f:selectItem itemValue="false" itemLabel="Ne"/>
+	        				</h:selectOneRadio>
+	        			</div>
+	        			<div>
+	        				<h:outputLabel for="input-use-user-config" value="Použít konfiguraci pro každého uživatele"/>
+	        				<h:selectOneRadio id="input-use-user-config" value="#{configBean.useUserConfig}">
+	        					<f:selectItem itemValue="true" itemLabel="Ano"/>
+	        					<f:selectItem itemValue="false" itemLabel="Ne"/>
+	        				</h:selectOneRadio>
+	        			</div>
+	        			<div id="user-config">
+	        				<ui:repeat value="#{configBean.userConfigs}" var="config">
+		        				<div>
+		        					<h:inputHidden id="id-of-record" value="#{config.id}"/>
+		        					<h:outputLabel for="input-device-name" value="Název zařízení:"/>
+		        					<h:inputText id="input-device-name" value="#{config.name}"/>
+		        					<h:outputLabel for="input-mac-address" value="MAC:"/>
+		        					<h:inputText id="input-mac-address" value="#{config.mac}"/>
+		        					<h:outputLabel for="input-light-color" value="Barva světla:"/>
+		        					<h:inputText id="input-light-color" value="#{config.color}"/>
+		        					<h:commandButton action="#{configBean.delete(config.id)}" value="X"/>
+		        				</div>
+	        				</ui:repeat>
+	        					<div>
+		        					<h:outputLabel for="input-device-name" value="Název zařízení:"/>
+		        					<h:inputText id="input-device-name" value="#{configBean.name}"/>
+		        					<h:outputLabel for="input-mac-address" value="MAC:"/>
+		        					<h:inputText id="input-mac-address" value="#{configBean.mac}"/>
+		        					<h:outputLabel for="input-light-color" value="Barva světla:"/>
+		        					<h:inputText id="input-light-color" value="#{configBean.color}"/>
+		        					<h:commandButton action="#{configBean.add}" value="Přidat"/>
+		        				</div>
+	        			</div>
 	        			<h:commandButton class="btn-confirm" action="#{configBean.save}" value="Nastavit"/>
 	        		</h:form>
 	        	</div>
