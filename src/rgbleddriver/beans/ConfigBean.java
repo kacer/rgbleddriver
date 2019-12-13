@@ -52,6 +52,9 @@ public class ConfigBean {
 		
 		config.setCountOfLed(countOfLed);
 		config.setGpioNum(gpioNum);
+		config.setPhotocellGpioNum(photocellNum);
+		config.setUsePhotocell(usePhotocell);
+		config.setUseUserConfig(useUserConfig);
 		
 		if(config.save()) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Konfigurace byla úspìšnì zmìnìna. Zmìna se projeví po restartu aplikace."));
