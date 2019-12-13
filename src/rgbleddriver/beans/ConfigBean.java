@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 
 import rgbleddriver.model.UserConfig;
 import rgbleddriver.tools.ConfigLoader;
+import rgbleddriver.tools.ConfigService;
 import rgbleddriver.tools.UserConfigManager;
 
 @ManagedBean(name = "configBean", eager = true)
@@ -34,14 +35,14 @@ public class ConfigBean {
 	
 	@PostConstruct
 	public void init() {
-		config = new ConfigLoader();
+		config = ConfigService.getInstance().getConfig();
 		userConfigManager = config;
 		gpioNum = config.getGpioNum();
 		countOfLed = config.getCountOfLed();
 		photocellNum = config.getPhotocellGpioNum();
 		usePhotocell = config.getUsePhotocell();
 		useUserConfig = config.getUseUserConfig();
-		userConfigs = userConfigManager.load();
+		userConfigs = ConfigService.getInstance().getUserConfigs();
 	}
 	
 	public String save() {
