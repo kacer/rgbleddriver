@@ -81,26 +81,15 @@ public class RGBLedDriverApplication implements ServletContextListener {
 					if(it.hasNext())
 						mac = it.next().getValue().getURL().getDeviceCompositeAddress();
 
-					if(configService.getConfig().getUsePhotocell()) {
-						if(mac == null || photocell.readValue() < LIGHT_INTENSITY) {
-							configService.getLeds().setColorToAllLed(Color.BLACK);
-						} else {
-							UserConfig uc = findUserConfig(mac);
-							Color color = Color.fromString(uc.getColor());
-							if(!configService.getLeds().getLedColor(0).equals(color)) {
-								configService.getLeds().setColorToAllLed(color);;
-							}
-						}
+					boolean usePhotocell = configService.getConfig().getUsePhotocell();
+					if(mac == null || (usePhotocell && photocell.readValue() < LIGHT_INTENSITY)) {
+						configService.getLeds().setColorToAllLed(Color.BLACK);
+						configService.getLeds().update();
 					} else {
-						if(mac == null) {
-							configService.getLeds().setColorToAllLed(Color.BLACK);
-						} else {
-							UserConfig uc = findUserConfig(mac);
-							Color color = Color.fromString(uc.getColor());
-							if(!configService.getLeds().getLedColor(0).equals(color)) {
-								configService.getLeds().setColorToAllLed(color);;
-							}
-						}
+						UserConfig uc = findUserConfig(mac);
+						Color color = Color.fromString(uc.getColor());
+						configService.getLeds().setColorToAllLed(color);
+						configService.getLeds().update();
 					}
 				}
 			});
