@@ -8,35 +8,42 @@
 			<ui:define name="content">
 	        	<h1>RGB LED Driver for WS2812</h1>
 	        	<div class="container">
-	        		<h2>Config page</h2>
-	        		<h:form method="post" >
+	        		<h2>Konfigurace</h2>
+	        		<h:form id="config-form" method="post" >
 	        			<h:panelGroup rendered="#{not empty facesContext.messageList}">
 	        				<h:messages></h:messages>
 	        			</h:panelGroup>
 	        			<div>
-	        				<h:outputLabel for="input-gpio-num" value="GPIO NUM:"/>
+	        				<h:outputLabel for="input-count-of-led" value="Počet LED v pásku: "/>
+	        				<h:inputText id="input-count-of-led" value="#{configBean.countOfLed}"/>
+	        			</div>
+	        			<div>
+	        				<h:outputLabel for="input-gpio-num" value="Pin pro LED pásek: "/>
 	        				<h:selectOneMenu id="input-gpio-num" value="#{configBean.gpioNum}">
 		        				<f:selectItem itemValue="10" itemLabel="GPIO 10"/>
 		        				<f:selectItem itemValue="18" itemLabel="GPIO 18"/>
 	        				</h:selectOneMenu>
 	        			</div>
 	        			<div>
-	        				<h:outputLabel for="input-count-of-led" value="LED COUNT:"/>
-	        				<h:inputText id="input-count-of-led" value="#{configBean.countOfLed}"/>
+	        				<h:outputLabel for="input-photocell-gpio-num" value="Pin pro senzor světla: "/>
+	        				<h:selectOneMenu id="input-photocell-gpio-num" value="#{configBean.photocellNum}">
+	        					<f:selectItem itemValue="22" itemLabel="GPIO 22"/>
+	        					<f:selectItem itemValue="23" itemLabel="GPIO 23"/>
+	        					<f:selectItem itemValue="24" itemLabel="GPIO 24"/>
+	        					<f:selectItem itemValue="25" itemLabel="GPIO 25"/>
+	        					<f:selectItem itemValue="26" itemLabel="GPIO 26"/>
+	        					<f:selectItem itemValue="27" itemLabel="GPIO 27"/>
+	        				</h:selectOneMenu>
 	        			</div>
 	        			<div>
-	        				<h:outputLabel for="input-photocell-gpio-num" value="Photocell GPIO NUM:"/>
-	        				<h:inputText id="input-photocell-gpio-num" value="#{configBean.photocellNum}"/>
-	        			</div>
-	        			<div>
-	        				<h:outputLabel for="input-use-photocell" value="Používat senzor světla:"/>
+	        				<h:outputLabel for="input-use-photocell" value="Používat senzor světla: "/>
 	        				<h:selectOneRadio id="input-use-photocell" value="#{configBean.usePhotocell}">
 	        					<f:selectItem itemValue="true" itemLabel="Ano"/>
 	        					<f:selectItem itemValue="false" itemLabel="Ne"/>
 	        				</h:selectOneRadio>
 	        			</div>
 	        			<div>
-	        				<h:outputLabel for="input-use-user-config" value="Použít konfiguraci pro každého uživatele"/>
+	        				<h:outputLabel for="input-use-user-config" value="Použít konfiguraci pro každého uživatele: "/>
 	        				<h:selectOneRadio id="input-use-user-config" value="#{configBean.useUserConfig}">
 	        					<f:selectItem itemValue="true" itemLabel="Ano"/>
 	        					<f:selectItem itemValue="false" itemLabel="Ne"/>
@@ -67,6 +74,7 @@
 	        			</div>
 	        			<h:commandButton class="btn-confirm" action="#{configBean.save}" value="Nastavit"/>
 	        		</h:form>
+	        		<a href="index.xhtml" title="Zpět" class="btn-secondary">Zpět</a>
 	        	</div>
 	        </ui:define>
         </ui:composition>

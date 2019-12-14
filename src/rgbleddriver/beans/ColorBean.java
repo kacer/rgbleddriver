@@ -23,4 +23,8 @@ public class ColorBean extends AbstractBean {
 		return leds;
 	}
 	
+	public ConfigBean getConfigBean() {
+		return configBean;
+	}
+	
 }
