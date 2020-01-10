@@ -26,6 +26,16 @@ public class ConfigService {
 		return userConfigs;
 	}
 	
+	public UserConfig findUserConfig(String mac) {
+		for(UserConfig uc : userConfigs) {
+			if(uc.getMac().equalsIgnoreCase(mac)) {
+				return uc;
+			}
+		}
+		
+		return null;
+	}
+	
 	public LedStrip getLeds() {
 		return leds;
 	}

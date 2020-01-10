@@ -31,7 +31,7 @@ import rgbleddriver.tools.ConfigService;
 @WebListener
 public class RGBLedDriverApplication implements ServletContextListener {
 	
-	private static final int BAD_RSSI = -110;
+	private static final int BAD_RSSI = -80;
 	private static final int REFRESH_RATE = 1000;
 	private static final int LIGHT_INTENSITY = 1000;
 	private BluetoothManager bluetoothManager;
@@ -53,10 +53,10 @@ public class RGBLedDriverApplication implements ServletContextListener {
 			@Override
 			public void discovered(DiscoveredDevice discoveredDevice) {
 				String mac = discoveredDevice.getURL().getDeviceCompositeAddress();
-				if(findUserConfig(mac) == null)
+				if(configService.findUserConfig(mac) == null)
 					return;
 				
-				if(discoveredDevice.getRSSI() > BAD_RSSI) { // Odstranit taky kdyz prejde do stavu offline nebo timeout?
+				if(discoveredDevice.getRSSI() > BAD_RSSI) {
 					devices.put(mac, discoveredDevice);
 				} else {
 					devices.remove(mac);
@@ -86,7 +86,7 @@ public class RGBLedDriverApplication implements ServletContextListener {
 						configService.getLeds().setColorToAllLed(Color.BLACK);
 						configService.getLeds().update();
 					} else {
-						UserConfig uc = findUserConfig(mac);
+						UserConfig uc = configService.findUserConfig(mac);
 						Color color = Color.fromString(uc.getColor());
 						configService.getLeds().setColorToAllLed(color);
 						configService.getLeds().update();
@@ -95,16 +95,6 @@ public class RGBLedDriverApplication implements ServletContextListener {
 			});
 			timer.start();
 		}
-	}
-	
-	private UserConfig findUserConfig(String mac) {
-		for(UserConfig uc : configService.getUserConfigs()) {
-			if(uc.getMac().equals(mac)) {
-				return uc;
-			}
-		}
-		
-		return null;
 	}
 	
 	@Override
